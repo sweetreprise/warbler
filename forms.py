@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField, ValidationError
 from wtforms.validators import DataRequired, Email, Length
 
 
@@ -24,6 +24,7 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[Length(min=6)])
 
+
 class UserEditForm(FlaskForm):
     """Form for editing a user."""
 
@@ -33,3 +34,16 @@ class UserEditForm(FlaskForm):
     header_image_url = StringField('(Optional) Header URL')
     bio = TextAreaField('Bio')
     password = PasswordField('Password', validators=[DataRequired()])
+
+# class PasswordValidationForm(FlaskForm):
+#     """Checks if password is valid to edit user details"""
+
+#     password = PasswordField("Password")
+
+#     def __init__(self, user, *args, **kwargs):
+#         super(PasswordValidationForm, self).__init__(*args, **kwargs)
+#         self.user = user
+        
+#     def validate_password(self, field):
+#         if field.data != self.user.password:
+#             raise ValidationError("Your password is incorrect.")
